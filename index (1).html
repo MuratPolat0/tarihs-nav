@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Osmanlı'da Demokratikleşme - İnteraktif Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    .quiz-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .options {
+      margin-bottom: 5px;
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .result {
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .feedback {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>Osmanlı'da Demokratikleşme ve 20. Yüzyıl Olayları - Quiz Murat Polat</h2>
+    <form id="quizForm"></form>
+    <button onclick="showResults()">Sonuçları Göster</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Aşağıdakilerden hangisi Lozanda çözülemeyen sorunlardan biridir?",
+        options: ["Sınır Sorunları", "Yabancı Okullar Sorunu", "Boğazlar sorunu", "Osmanlıdan kalan borçlar", "Musul Sorunu"],
+        answer: 4
+      },
+      {
+        q: "Mustafa Kemal'in ilk kez sivil olarak katıldığı kongre aşağıdakilerden hangisidir?",
+        options: ["Erzurum", "Sivas", "Havza", "Amasya", "Amasya Görüşmeleri"],
+        answer: 1
+      },
+      {
+        q: "Amasya Genelgesinde aşağıdaki isimlerden hangisinin imzası yoktur?",
+        options: ["Mustafa Kemal Atatürk", "İsmet İnönü", "Refet Bele", "Ali Fuat Cebesoy", "Rauf Orbay"],
+        answer: 1
+      },
+      {
+        q: "Aşağıdaki olaylardan/kongrelerden hangisinde ilk defa milli sınırlardan bahsedilmiştir?",
+        options: ["Erzurum", "Sivas", "Havza", "Amasya", "Amasya Görüşmeleri"],
+        answer: 0
+      },
+      {
+        q: "Manda ve himaye kesin olarak aşağıdakilerden hangisinde reddedilmiştir?",
+        options: ["Erzurum", "Sivas", "Havza", "Amasya", "Amasya Görüşmeleri"],
+        answer: 1
+      },
+      {
+        q: "Temsil Heyetinin ilk kez hükümet gibi davrandığı kongre aşağıdakilerden hangisidir?",
+        options: ["Erzurum", "Sivas", "Havza", "Amasya", "Amasya Görüşmeleri"],
+        answer: 1
+      },
+      {
+        q: "Temsil Heyetinin yürütme yetkisini kullandığı ilk kongre aşağıdakilerden hangisidir?",
+        options: ["Erzurum", "Sivas", "Havza", "Amasya", "Amasya Görüşmeleri"],
+        answer: 1
+      },
+      {
+        q: "Ölü Doğan Antlaşma aşağıdakilerden hangisidir?",
+        options: ["Sevr Antlaşması", "Mondros Antlaşması", "Lozan Antlaşması", "Mudanya Antlaşması", "Gümrü Antlaşması"],
+        answer: 0
+      },
+      {
+        q: "Türkiye adının geçtiği ilk antlaşma aşağıdakilerden hangisidir?",
+        options: ["Sevr Antlaşması", "Mondros Antlaşması", "Lozan Antlaşması", "Mudanya Antlaşması", "Gümrü Antlaşması"],
+        answer: 4
+      },
+      {
+        q: "Şark Fatihi ünvanına sahip kişi aşağıdakilerden hangisidir?",
+        options: ["Enver Paşa", "İsmet(İnönü) Paşa", "Kazım (Karabekir) Paşa", "Fahrettin Paşa", "Halil Kut Paşa"],
+        answer: 2
+      },
+      {
+        q: "Güney Cephesini kapatan antlaşma aşağıdakilerden hangisidir?",
+        options: ["Ankara(1921)", "Ankara(1926)", "Moskova Antlaşması", "Londra Konferansı", "Gediz Antlaşması"],
+        answer: 0
+      },
+      {
+        q: "Aşağıdakilerden hangisi I. İnönü Savaşının sonuçlarından biri değildir?",
+        options: ["İstiklal Marşı", "Moskova Antlaşması", "Londra Konferansı", "Afganistan ile dostluk antlaşması", "Fransa'nın TBMM’ye ateşkes teklifi"],
+        answer: 4
+      },
+      {
+        q: "Kurtuluş Savaşında ilk kaybettiğimiz cephe aşağıdakilerden hangisidir?",
+        options: ["Büyük Taarruz", "Eskişehir-Kütahya Savaşı", "II. İnönü", "I. İnönü", "Sakarya Meydan Muharebesi"],
+        answer: 1
+      },
+      {
+        q: "Subaylar Savaşı olarak bilinen savaş aşağıdakilerden hangisidir?",
+        options: ["Büyük Taarruz", "Çanakkale Savaşı", "Trablusgarp Savaşı", "I. İnönü", "Sakarya Meydan Muharebesi"],
+        answer: 4
+      },
+      {
+        q: "Mustafa Kemal ATATÜRK’ün 'Ordular! İlk hedefiniz Akdeniz’dir, ileri!' dediği savaş aşağıdakilerden hangisidir?",
+        options: ["Büyük Taarruz", "Çanakkale Savaşı", "Trablusgarp Savaşı", "I. İnönü", "II. İnönü"],
+        answer: 0
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    questions.forEach((q, i) => {
+      const questionHTML = `
+        <div class="question">${i + 1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((opt, j) => `
+            <label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>
+          `).join('')}
+        </div>
+        <div class="feedback" id="feedback${i}"></div>
+      `;
+      form.insertAdjacentHTML("beforeend", questionHTML);
+    });
+
+    function showResults() {
+      let score = 0;
+      questions.forEach((q, index) => {
+        const answer = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedbackEl = document.getElementById(`feedback${index}`);
+        if (answer) {
+          const selected = parseInt(answer.value);
+          if (selected === q.answer) {
+            score++;
+            feedbackEl.textContent = "✔ Doğru!";
+            feedbackEl.style.color = "green";
+          } else {
+            feedbackEl.textContent = `✘ Yanlış. Doğru cevap: "${q.options[q.answer]}"`;
+            feedbackEl.style.color = "red";
+          }
+        } else {
+          feedbackEl.textContent = `✘ Cevaplanmadı. Doğru cevap: "${q.options[q.answer]}"`;
+          feedbackEl.style.color = "red";
+        }
+      });
+      document.getElementById("result").textContent = `Doğru sayınız: ${score} / ${questions.length}`;
+    }
+  </script>
+</body>
+</html>
